@@ -24,6 +24,9 @@ if [ "$ssh_key" != "" ]; then
 	# echo "SSH_HOSTS => $ssh_hosts"
 	# echo $(base64 --help)p
 
+	echo "---------"
+	echo $ssh_key
+	echo "---------"
 	echo $ssh_key | base64 --decode --ignore-garbage --wrap=0 > "$HOME/.ssh/id_rsa"
 
 	echo "DONE"
