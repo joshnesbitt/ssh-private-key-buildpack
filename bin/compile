@@ -20,11 +20,10 @@ if [ "$ssh_key" != "" ]; then
 	mkdir "$1/.ssh"
 	ln -s "$1/.ssh" "$HOME/.ssh"
 
-	echo "SSH_KEY => $ssh_key"
-	echo "SSH_HOSTS => $ssh_hosts"
-	echo $(echo "$ssh_key" | base64 --decode) > "$HOME/.ssh/id_rsa"
+	# echo "SSH_KEY => $ssh_key"
+	# echo "SSH_HOSTS => $ssh_hosts"
 
-	# echo "$ssh_key" | base64 --decode > "$HOME/.ssh/id_rsa"
+	echo "$ssh_key" | base64 --decode > "$HOME/.ssh/id_rsa"
 
 	IFS=',' read -ra HOST <<< "$ssh_hosts"
 	for i in "${HOST[@]}"; do
