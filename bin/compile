@@ -23,7 +23,10 @@ if [ "$ssh_key" != "" ]; then
 	# For some completely unknown reason the error "base64: invalid input"
 	# is returned when the key is decoded. This appears to be because
 	# Heroku strips the == from the end :/
-	printf "$ssh_key==" | base64 -d -i -w 0 > "$HOME/.ssh/id_rsa"
+
+	[[ "$ssh_key" == *== ]] || ssh_key="$ssh_key=="
+
+	printf $ssh_key | base64 -d -i -w 0 > "$HOME/.ssh/id_rsa"
 
 	echo "Host github.com
    IdentityFile ~/.ssh/id_rsa
