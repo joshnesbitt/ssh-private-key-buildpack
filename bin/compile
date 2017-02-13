@@ -27,7 +27,7 @@ if [ "$ssh_key" != "" ]; then
 	echo "---------"
 	echo $ssh_key
 	echo "---------"
-	echo $ssh_key | base64 --decode --ignore-garbage --wrap=0 > "$HOME/.ssh/id_rsa"
+	echo $ssh_key | base64 --decode -i -w 0 > "$HOME/.ssh/id_rsa"
 
 	echo "DONE"
 	echo $(cat "$HOME/.ssh/id_rsa")
