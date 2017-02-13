@@ -18,7 +18,7 @@ if [ "$ssh_key" != "" ]; then
 	mkdir "$1/.ssh"
 	ln -s "$1/.ssh" "$HOME/.ssh"
 
-	printf $ssh_key | base64 -d -i -w 0 > "$HOME/.ssh/id_rsa"
+	base64 -d -i -w 0 $ENV_DIR/SSH_KEY > "$HOME/.ssh/id_rsa"
 
 	IFS=',' read -ra HOST <<< "$ssh_hosts"
 	for i in "${HOST[@]}"; do
