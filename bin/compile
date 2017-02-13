@@ -9,6 +9,7 @@ function indent() {
 }
 
 ENV_DIR=${3:-}
+
 ssh_path="$ENV_DIR/SSH_KEY"
 ssh_key="$(cat $ssh_path)"
 ssh_hosts=${SSH_HOSTS:-"git@github.com"}
@@ -18,6 +19,10 @@ if [ "$ssh_key" != "" ]; then
 
 	mkdir "$1/.ssh"
 	ln -s "$1/.ssh" "$HOME/.ssh"
+
+	# For some completely unknown reason the error "base64: invalid input"
+	# is returned when the key is decoded. This appears to be because
+	# Heroku strips the == from the end :/
 	printf "$ssh_key==" | base64 -d -i -w 0 > "$HOME/.ssh/id_rsa"
 
 	IFS=',' read -ra HOST <<< "$ssh_hosts"
