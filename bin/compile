@@ -22,9 +22,9 @@ if [ "$ssh_key" != "" ]; then
 
 	# echo "SSH_KEY => $ssh_key"
 	# echo "SSH_HOSTS => $ssh_hosts"
-	echo $(base64 --help)
+	# echo $(base64 --help)
 
-	base64 --decode --input="$ENV_DIR/SSH_KEY" --output="$HOME/.ssh/id_rsa"
+	echo $ssh_key | base64 --decode --ignore-garbage > "$HOME/.ssh/id_rsa"
 
 	echo "DONE"
 	echo $(cat "$HOME/.ssh/id_rsa")
