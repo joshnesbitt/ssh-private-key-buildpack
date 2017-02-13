@@ -22,8 +22,12 @@ if [ "$ssh_key" != "" ]; then
 
 	# echo "SSH_KEY => $ssh_key"
 	# echo "SSH_HOSTS => $ssh_hosts"
+	echo $(base64 --help)
 
-	echo "$ssh_key" | base64 --decode > "$HOME/.ssh/id_rsa"
+	base64 --decode --input="$ENV_DIR/SSH_KEY" --output="$HOME/.ssh/id_rsa"
+
+	echo "DONE"
+	echo $(cat "$HOME/.ssh/id_rsa")
 
 	IFS=',' read -ra HOST <<< "$ssh_hosts"
 	for i in "${HOST[@]}"; do
