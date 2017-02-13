@@ -15,22 +15,10 @@ ssh_hosts=${SSH_HOSTS:-"git@github.com"}
 if [ "$ssh_key" != "" ]; then
 	echo "-----> Running SSH private key setup"
 
-	# The .ssh needs to be located in the home directory which is different to the
-	# home directory of the built machine. The symlink resolves the issue.
 	mkdir "$1/.ssh"
 	ln -s "$1/.ssh" "$HOME/.ssh"
 
-	# echo "SSH_KEY => $ssh_key"
-	# echo "SSH_HOSTS => $ssh_hosts"
-	# echo $(base64 --help)p
-
-	echo "---------"
-	echo $ssh_key
-	echo "---------"
-	printf $ssh_key | base64 --decode -i -w 0 > "$HOME/.ssh/id_rsa"
-
-	echo "DONE"
-	echo $(cat "$HOME/.ssh/id_rsa")
+	printf $ssh_key | base64 -d -i -w 0 > "$HOME/.ssh/id_rsa"
 
 	IFS=',' read -ra HOST <<< "$ssh_hosts"
 	for i in "${HOST[@]}"; do
@@ -39,5 +27,5 @@ if [ "$ssh_key" != "" ]; then
 
 	exit 0
 else
-	echo "-----> No SSH private key"
+	echo "-----> No SSH private key to setup!"
 fi
