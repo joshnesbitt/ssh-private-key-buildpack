@@ -50,7 +50,8 @@ if [ "$ssh_key" != "" ]; then
 
 	echo "Host github.com
    IdentityFile ~/.ssh/id_rsa
-   IdentitiesOnly yes" > "$HOME/.ssh/config"
+   IdentitiesOnly yes
+   StrictHostKeyChecking no" > "$HOME/.ssh/config"
 
   ssh-add -K "$HOME/.ssh/id_rsa"
 
