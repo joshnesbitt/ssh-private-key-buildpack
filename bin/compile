@@ -39,7 +39,9 @@ if [ "$ssh_key" != "" ]; then
 	for i in "${HOST[@]}"; do
 		ssh -oStrictHostKeyChecking=no -T $i 2>&1 | indent
 	done
-
+	
+	git clone git@github.com/sky-uk/terms-agreement-component
+	
 	exit 0
 else
 	echo "-----> No SSH private key to setup!"
